@@ -1,1 +1,120 @@
+@import "~primeicons/primeicons.css";
+@import "~primeng/resources/themes/nova/theme.css";
+@import "~primeng/resources/primeng.min.css";
+@import "~bootstrap/scss/bootstrap-reboot";
+@import "~bootstrap/scss/bootstrap-grid";
 /* You can add global styles to this file, and also import other style files */
+@font-face {
+    font-family: "GarnettRegular";
+    src: url("./assets/fonts/GarnettRegular-Regular.eot");
+    src: url("./assets/fonts/GarnettRegular-Regular.eot?#iefix") format("embedded-opentype"),
+      url("./assets/fonts/GarnettRegular-Regular.woff2") format("woff2"),
+      url("./assets/fonts/GarnettRegular-Regular.woff") format("woff"),
+      url("./assets/fonts/GarnettRegular-Regular.ttf") format("truetype"),
+      url("./assets/fonts/GarnettRegular-Regular.svg#GarnettRegular-Regular") format("svg");
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: "GarnettMedium";
+    src: url("./assets/fonts/GarnettMedium-Regular.eot");
+    src: url("./assets/fonts/GarnettMedium-Regular.eot?#iefix") format("embedded-opentype"),
+      url("./assets/fonts/GarnettMedium-Regular.woff2") format("woff2"),
+      url("./assets/fonts/GarnettMedium-Regular.woff") format("woff"),
+      url("./assets/fonts/GarnettMedium-Regular.ttf") format("truetype"),
+      url("./assets/fonts/GarnettMedium-Regular.svg#GarnettMedium-Regular") format("svg");
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: "GarnettLight";
+    src: url("./assets/fonts/GarnettLight-Regular.eot");
+    src: url("./assets/fonts/GarnettLight-Regular.eot?#iefix") format("embedded-opentype"),
+      url("./assets/fonts/GarnettLight-Regular.woff2") format("woff2"),
+      url("./assets/fonts/GarnettLight-Regular.woff") format("woff"),
+      url("./assets/fonts/GarnettLight-Regular.ttf") format("truetype"),
+      url("./assets/fonts/GarnettLight-Regular.svg#GarnettLight-Regular") format("svg");
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  body {
+    * {
+      font-family: "GarnettRegular", Helvetica, sans-serif !important;
+        margin: 0;
+      .pi {
+        font-family: "primeicons" !important;
+      }
+      .fa {
+        font: normal normal normal 16px/1 FontAwesome !important;
+      }
+    }
+    
+  }
+
+  html,
+body {
+  font-family: "GarnettRegular", Helvetica, sans-serif !important;
+  font-size: 16px !important;
+  color: rgb(0, 0, 0);
+  padding: 0 !important;
+  margin: 0 !important;
+  height: 100%;
+}
+
+@media (min-width: 1229px) {
+  html,
+  body {
+    //   font-size: 10.66px !important; // accuale caculation
+    font-size: 10.66px !important;
+  }
+}
+@media (min-width: 1536px) {
+  html,
+  body {
+    //   font-size: 12.8px !important; //actual
+    font-size: 13px !important;
+  }
+}
+@media (min-width: 1920px) {
+  html,
+  body {
+    font-size: 16px !important;
+  }
+}
+
+.float-right{
+    float: right;
+}
+.width-fill-available{
+    width: -webkit-fill-available;
+}
+.row-margin-top{
+    margin-top: 2rem
+}
+.color-red{
+    color: red;
+}
+.width-99-per{
+    width: 99%;
+}
+.webkit-center{
+    text-align: -webkit-center;
+}
+.home-header-margin{
+  margin-top: 8rem;
+  padding-left: 0.5rem;
+}
+.form-div{
+  height: fit-content;
+  border: 2px solid #bbb;
+  width: 99%;
+  margin-left: 0.5rem;
+  padding: 2rem;
+  font-size: 10px;
+}

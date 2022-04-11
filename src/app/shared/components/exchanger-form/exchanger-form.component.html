@@ -1,0 +1,54 @@
+<div class="form-div mt-4">
+    <form [formGroup]="exchangerForm" (ngSubmit)="onSubmit()">
+        <div class="row">
+            <div class="col-5 form-group">
+                <span class="p-float-label">
+                    <input id="float-input" formControlName = "amount" 
+                    class = "width-fill-available" type="text" pInputText
+                    [ngClass] = "{'has-error' : isSubmit &&
+                    exchangerForm.controls['amount'].status === formStatusRef.INVALID}"> 
+                    <label for="float-input">{{amount}}</label>
+                </span>
+                <p *ngIf = "isSubmit && 
+                exchangerForm.controls['amount'].status === formStatusRef.INVALID"
+                class = "color-red">*{{amountErr}}</p>
+            </div>
+
+            <div class="col-3 form-group">
+                <p-dropdown [options]="countries" formControlName = "fromCountry"  [disabled] = "true"
+                optionLabel="name" optionValue="code"[showTransitionOptions]="'200ms'" 
+                [hideTransitionOptions]="'200ms'" class="width-fill-available"></p-dropdown>
+            </div>
+            <div class="col-1">
+                <span class="pi pi-arrows-h" style="font-size: 2rem"></span>  
+            </div>
+            <div class="col-3 form-group">
+                <p-dropdown [options]="countries" formControlName = "toCountry" 
+                optionLabel="name" optionValue="code"[showTransitionOptions]="'200ms'"
+                [hideTransitionOptions]="'200ms'" class="width-fill-available"></p-dropdown>
+            </div>
+
+        </div>
+        <div class="row mt-4">
+            <div class="col-5"></div>
+            <div class="col-6 form-group">
+                <button pButton type="submit" label={{convert}} 
+                class="p-button-secondary p-button-raised width-fill-available"></button>
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-5 form-group">
+                <input type="text" formControlName = "conversionRate" 
+                class = "width-fill-available" pInputText>
+            </div>
+            <div class="col-4 form-group">
+                <input type="text" formControlName = "convertedValue" 
+                class = "width-fill-available result-disp-height"  pInputText >
+            </div>
+            <div class="col-2 form-group">
+                <button pButton type="submit" label={{moreDetails}} (click) = "onMoreDetails()"
+                class="p-button-secondary p-button-raised width-fill-available" [disabled] = "disableMore"></button>
+            </div>
+        </div>
+    </form>
+</div>

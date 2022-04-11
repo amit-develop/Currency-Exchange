@@ -1,0 +1,18 @@
+<div class="home-header-margin">
+    <div class="row">
+        <div class="col-3">
+            <h4>{{detailsHeader}}</h4>
+        </div>
+        <div class="col-7"></div>
+        <div class="col-2">
+            <button pButton type="button" label={{backToHome}} (click) = "back()"
+            class="p-button-secondary p-button-raised width-fill-available"></button>
+        </div>
+    </div>
+</div>
+<app-exchanger-form [formData] = 'formData'></app-exchanger-form>
+
+<div class="form-div mt-4">
+    <h4>{{chartHeader}}</h4>
+    <p-chart type="line" [data]="basicData" [options]="basicOptions"></p-chart>
+</div>

@@ -1,0 +1,12 @@
+<div class="home-header-margin">
+    <h4>{{header}}</h4>
+</div>
+<app-exchanger-form></app-exchanger-form>
+<div *ngIf = "(rates | json) != '{}'" class = "row mt-4 width-99-per webkit-center" >
+    <div class="col-4" *ngFor = "let code of cntryCd | keyvalue">
+        <app-conversions [fromCountry] = "'EUR'" [toCountry] = "code.value"
+        [rates] = "rates[code.value]"
+        [amount] = "amount"></app-conversions>
+    </div>
+</div>
+
