@@ -19,11 +19,11 @@ export class NavBarComponent implements OnInit {
   ngOnInit(): void {
   }
   gotToDetails(str: string){
-    if(str === "USD") {
-      this.homeService.updateEurUsd('USD');
+    if(str === AppConstants.USD) {
+      this.homeService.updateEurUsd(AppConstants.USD);
     }
-    if(str === "GBP") {
-      this.homeService.updateEurGBP('GBP');
+    if(str === AppConstants.GBP) {
+      this.homeService.updateEurGBP(AppConstants.GBP);
     }
     this.router.navigate(['/details']);
   }

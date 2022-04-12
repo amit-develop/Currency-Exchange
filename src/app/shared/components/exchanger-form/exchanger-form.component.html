@@ -17,6 +17,7 @@
             <div class="col-3 form-group">
                 <p-dropdown [options]="countries" formControlName = "fromCountry" [disabled] = "disableMore"
                 optionLabel="name" optionValue="code"[showTransitionOptions]="'200ms'" 
+                [ngClass] = "{isDisabled: disableMore}"
                 [hideTransitionOptions]="'200ms'" class="width-fill-available"></p-dropdown>
             </div>
             <div class="col-1">
@@ -39,15 +40,16 @@
         <div class="row mt-4">
             <div class="col-5 form-group">
                 <input type="text" formControlName = "conversionRate" 
-                class = "width-fill-available" pInputText>
+                class = "width-fill-available isDisabled" pInputText>
             </div>
             <div class="col-4 form-group">
                 <input type="text" formControlName = "convertedValue" 
-                class = "width-fill-available result-disp-height"  pInputText >
+                class = "width-fill-available result-disp-height isDisabled"  pInputText >
             </div>
             <div class="col-2 form-group">
                 <button pButton type="submit" label={{moreDetails}} (click) = "onMoreDetails()"
-                class="p-button-secondary p-button-raised width-fill-available" [disabled] = "disableMore"></button>
+                class="p-button-secondary p-button-raised width-fill-available" [disabled] = "disableMore"
+                [ngClass] = "{isDisabled: disableMore}"></button>
             </div>
         </div>
     </form>

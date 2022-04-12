@@ -69,8 +69,8 @@ export class ExchangerFormComponent implements OnInit, OnChanges {
   buildForm() {
     this.exchangerForm = this.fb.group({
       amount: ['', Validators.required],
-      fromCountry: ['EUR', Validators.required],
-      toCountry: ['USD', Validators.required],
+      fromCountry: [AppConstants.EUR, Validators.required],
+      toCountry: [AppConstants.USD, Validators.required],
       conversionRate: [{ value: '', disabled: true }],
       convertedValue: [{ value: '', disabled: true }]
     })
@@ -88,12 +88,12 @@ export class ExchangerFormComponent implements OnInit, OnChanges {
   ngOnInit(): void {
     this.homeService.usdEurBtn.subscribe(res => {
       this.exchangeCurrency = res;
-      this.exchangerForm.controls['fromCountry'].setValue('EUR')
+      this.exchangerForm.controls['fromCountry'].setValue(AppConstants.EUR)
       this.exchangerForm.controls['toCountry'].setValue(res);
     })
     this.homeService.usdEurGBP.subscribe(res => {
       this.exchangeCurrency = res;
-      this.exchangerForm.controls['fromCountry'].setValue('EUR')
+      this.exchangerForm.controls['fromCountry'].setValue(AppConstants.EUR)
       this.exchangerForm.controls['toCountry'].setValue(res);
     })
     if (this.router.url.includes('details')) {
@@ -105,12 +105,12 @@ export class ExchangerFormComponent implements OnInit, OnChanges {
   }
   setDisplayVlaues() {
     if (this.homeService.convertToUSD) {
-      this.exchangerForm.controls['fromCountry'].setValue('EUR')
+      this.exchangerForm.controls['fromCountry'].setValue(AppConstants.EUR)
       this.exchangerForm.controls['toCountry'].setValue("USD");
     }
     if (this.homeService.convertToGBP) {
-      this.exchangerForm.controls['fromCountry'].setValue('EUR')
-      this.exchangerForm.controls['toCountry'].setValue("GBP");
+      this.exchangerForm.controls['fromCountry'].setValue(AppConstants.EUR)
+      this.exchangerForm.controls['toCountry'].setValue(AppConstants.GBP);
     }
   }
   onSubmit() {
@@ -123,7 +123,7 @@ export class ExchangerFormComponent implements OnInit, OnChanges {
 
   callExchangeApi(toCountry:string) {
     this.homeService.getConversionRates(
-      'EUR',
+      AppConstants.EUR,
       toCountry,
       this.exchangerForm.value.amount, "latest"
     ).subscribe((next: CurrencyExchangeResponseModel) => {

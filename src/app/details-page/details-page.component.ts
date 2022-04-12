@@ -46,8 +46,8 @@ export class DetailsPageComponent implements OnInit {
     private router: Router) {
 
     this.formData = {} as ExchangerFormRequestModel;
-    this.formData.fromCountry = 'EUR'
-    this.formData.toCountry = 'USD'
+    this.formData.fromCountry = AppConstants.EUR
+    this.formData.toCountry = AppConstants.USD
     this.formData.amount = 1;
     this.backToHome = AppConstants.BACK;
     this.chartHeader = AppConstants.HISTORICAL_CHART;
@@ -55,7 +55,7 @@ export class DetailsPageComponent implements OnInit {
     this.dataSetToCountry = [];
     this.observableArr = [];
     this.fullSetData = [];
-    this.detailsHeader = 'USD'
+    this.detailsHeader = AppConstants.USD
     this.listening = false;
     this.monthLabels = [];
     this.monthRefArr = Months;
@@ -67,8 +67,8 @@ export class DetailsPageComponent implements OnInit {
 
       this.formData = this.homeService.getFormData();
       if (Object.keys(this.formData).length === 0) {
-        this.formData.fromCountry = 'EUR'
-        this.formData.toCountry = 'USD'
+        this.formData.fromCountry = AppConstants.EUR
+        this.formData.toCountry = AppConstants.USD
         this.formData.amount = 1;
       }
       this.makeObservableArr(monthArr);
@@ -122,7 +122,7 @@ export class DetailsPageComponent implements OnInit {
       this.monthLabels.push(monthArr[labelDates.getMonth()]);
       
       return this.homeService.getConversionRates(
-        'EUR',
+        AppConstants.EUR,
         this.formData.toCountry,
         this.formData.amount,
         labelDates.toISOString().split('T')[0]

@@ -1,10 +1,12 @@
-
-.result-disp-height{
+.result-disp-height {
     height: 7rem;
 }
-.has-error{
-    border: 1px solid red
+.has-error {
+    border: 1px solid red;
 }
-.p-dropdown{
+.p-dropdown {
     width: 17.5rem !important;
+}
+.isDisabled {
+    cursor: not-allowed;
 }
