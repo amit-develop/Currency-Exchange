@@ -33,7 +33,6 @@ export class HomeService {
         } else {
             errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
         }
-        console.log("reaches here")
         this.messageService.add({severity: 'err', summary: 'Error', detail: error.message})
         window.alert(errorMessage);
         return throwError(errorMessage);
@@ -46,7 +45,6 @@ export class HomeService {
             '&to=' + toCountry )
             .pipe(
                 map((data: CurrencyExchangeResponseModel) => {
-                    console.log("service data", data);
                     return data;
                 }),
                 catchError(this.handleError)
