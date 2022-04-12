@@ -10,10 +10,7 @@ import { CountriesModel } from 'src/app/shared/model/countries.model';
 import { CurrencyExchangeResponseModel } from 'src/app/shared/model/currency-exchange-response.model';
 import { ExchangerFormEmitterModel } from 'src/app/shared/model/exchanger-form-emitter.model';
 import { ExchangerFormRequestModel } from '../../model/exchanger-form-request.model';
-enum FormStatus {
-  INVALID = "INVALID",
-  Valid = "VALID",
-}
+import { FormStatus } from '../../enums/form-status';
 @Component({
   selector: 'app-exchanger-form',
   templateUrl: './exchanger-form.component.html',

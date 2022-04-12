@@ -5,22 +5,8 @@ import { HomeService } from '../core/services/home.service';
 import { AppConstants } from '../shared/constants/app-constants';
 import { CurrencyExchangeResponseModel } from '../shared/model/currency-exchange-response.model';
 import { ExchangerFormRequestModel } from '../shared/model/exchanger-form-request.model';
+import { Months } from '../shared/enums/months';
 
-enum Months {
-  JAN = "January",
-  FEB = "February",
-  MAR = "March",
-  APR = "April",
-  MAY = "May",
-  JUN = "June",
-  JUL = "July",
-  AUG = "August",
-  SEP = "September",
-  OCT = "October",
-  NOV = "November",
-  DEC = "December"
-
-}
 @Component({
   selector: 'app-details-page',
   templateUrl: './details-page.component.html',

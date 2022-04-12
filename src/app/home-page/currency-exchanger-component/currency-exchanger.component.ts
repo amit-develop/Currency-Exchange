@@ -2,19 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { AppConstants } from '../../shared/constants/app-constants';
 import { HomeService } from '../../core/services/home.service';
-
-enum CountryCodes {
-  US = "USD",
-  GB = "GBP",
-  IN = "INR",
-  CH = "CNY",
-  AU = "AUD",
-  HK = "HKD",
-  JP = "JPY",
-  PK = "PKR",
-  SG = "SGD"
-}
-
+import { CountryCodes } from 'src/app/shared/enums/country-code';
 @Component({
   selector: 'app-currency-exchanger',
   templateUrl: './currency-exchanger.component.html',
@@ -23,10 +11,8 @@ enum CountryCodes {
 export class CurrencyExchangerComponent implements OnInit {
 
   public header: string = AppConstants.EXCHANGER_HEADER;
-  
-  
- 
   public cntryCd: typeof CountryCodes;
+
   rates: { [key: string]: number }  ;
   conversionRate: number;
   amount: number;

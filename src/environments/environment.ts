@@ -5,7 +5,10 @@
 export const environment = {
   production: false,
   urls: {
-    exchangerUrl: 'http://data.fixer.io/api/'
+    exchangerUrl: 'http://data.fixer.io/api/',
+  },
+  keys: {
+    accessKey: 'f95fe8ac04772a10bfeb690bc6020cd1'
   }
 };
 

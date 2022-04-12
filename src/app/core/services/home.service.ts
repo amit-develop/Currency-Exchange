@@ -40,7 +40,7 @@ export class HomeService {
     getConversionRates(fromCountry: string, toCountry: string, amt: number, param: string): Observable<CurrencyExchangeResponseModel> {
         return this.http.get<CurrencyExchangeResponseModel>(
             environment.urls.exchangerUrl + param +
-            '?access_key=f95fe8ac04772a10bfeb690bc6020cd1' +
+            '?access_key=' + environment.keys.accessKey +
             '&base=' + fromCountry +
             '&to=' + toCountry )
             .pipe(
