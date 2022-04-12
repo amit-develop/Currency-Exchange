@@ -1,0 +1,17 @@
+.card {
+    padding: 1rem;
+    width: 25rem;
+    margin-bottom: 2em;
+    height: 11rem;
+    border: 1px solid #bbb;
+    box-shadow: -1px 2px #bbb;
+    border-radius: 1rem;
+    .header {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 2.5rem;
+    }
+    .content{
+            font-size: 1.2rem;
+    }
+}

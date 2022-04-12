@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   urls: {
-    exchangerUrl: 'http://api.exchangeratesapi.io/v1/'
+    exchangerUrl: 'http://data.fixer.io/api/'
   }
 };
 

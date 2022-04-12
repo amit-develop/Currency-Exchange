@@ -15,7 +15,7 @@
             </div>
 
             <div class="col-3 form-group">
-                <p-dropdown [options]="countries" formControlName = "fromCountry"  [disabled] = "true"
+                <p-dropdown [options]="countries" formControlName = "fromCountry" [disabled] = "disableMore"
                 optionLabel="name" optionValue="code"[showTransitionOptions]="'200ms'" 
                 [hideTransitionOptions]="'200ms'" class="width-fill-available"></p-dropdown>
             </div>

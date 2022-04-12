@@ -17,35 +17,9 @@
     font-display: swap;
   }
   
-  @font-face {
-    font-family: "GarnettMedium";
-    src: url("./assets/fonts/GarnettMedium-Regular.eot");
-    src: url("./assets/fonts/GarnettMedium-Regular.eot?#iefix") format("embedded-opentype"),
-      url("./assets/fonts/GarnettMedium-Regular.woff2") format("woff2"),
-      url("./assets/fonts/GarnettMedium-Regular.woff") format("woff"),
-      url("./assets/fonts/GarnettMedium-Regular.ttf") format("truetype"),
-      url("./assets/fonts/GarnettMedium-Regular.svg#GarnettMedium-Regular") format("svg");
-    font-weight: 500;
-    font-style: normal;
-    font-display: swap;
-  }
-  
-  @font-face {
-    font-family: "GarnettLight";
-    src: url("./assets/fonts/GarnettLight-Regular.eot");
-    src: url("./assets/fonts/GarnettLight-Regular.eot?#iefix") format("embedded-opentype"),
-      url("./assets/fonts/GarnettLight-Regular.woff2") format("woff2"),
-      url("./assets/fonts/GarnettLight-Regular.woff") format("woff"),
-      url("./assets/fonts/GarnettLight-Regular.ttf") format("truetype"),
-      url("./assets/fonts/GarnettLight-Regular.svg#GarnettLight-Regular") format("svg");
-    font-weight: 300;
-    font-style: normal;
-    font-display: swap;
-  }
-  
   body {
     * {
-      font-family: "GarnettRegular", Helvetica, sans-serif !important;
+      font-family: "GarnettRegular", Helvetica, sans-serif ;
         margin: 0;
       .pi {
         font-family: "primeicons" !important;
@@ -54,6 +28,7 @@
         font: normal normal normal 16px/1 FontAwesome !important;
       }
     }
+    color: #bbb;
     
   }
 

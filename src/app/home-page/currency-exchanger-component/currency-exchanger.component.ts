@@ -27,11 +27,11 @@ export class CurrencyExchangerComponent implements OnInit {
   
  
   public cntryCd: typeof CountryCodes;
-  rates: { [key: string]: number } ;
+  rates: { [key: string]: number }  ;
   conversionRate: number;
-  result: typeof this.rates;
   amount: number;
   formValid: boolean;
+  from: string;
 
   constructor(
     private fb: FormBuilder,
@@ -39,10 +39,10 @@ export class CurrencyExchangerComponent implements OnInit {
   ) {
     this.cntryCd = CountryCodes;
     this.rates = {};
-    this.result = {};
     this.amount = 0.00;
     this.conversionRate = 0.00;
     this.formValid = false;
+    this.from = '';
   }
 
   ngOnInit(): void {
@@ -50,6 +50,7 @@ export class CurrencyExchangerComponent implements OnInit {
       this.rates = res.rates;
       this.amount = res.amount;
       this.formValid = res.valid;
+      this.from = res.from
     })
   }
 }

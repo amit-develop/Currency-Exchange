@@ -33,18 +33,20 @@ export class HomeService {
         } else {
             errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
         }
+        console.log("reaches here")
         this.messageService.add({severity: 'err', summary: 'Error', detail: error.message})
         window.alert(errorMessage);
         return throwError(errorMessage);
       }
-    getConversionRates(fromCountry: string, toCountry: string, amt: number, param: string) {
+    getConversionRates(fromCountry: string, toCountry: string, amt: number, param: string): Observable<CurrencyExchangeResponseModel> {
         return this.http.get<CurrencyExchangeResponseModel>(
             environment.urls.exchangerUrl + param +
-            '?access_key=80e6e724010205d6fcd877592acc2d8d' +
+            '?access_key=f95fe8ac04772a10bfeb690bc6020cd1' +
             '&base=' + fromCountry +
             '&to=' + toCountry )
             .pipe(
                 map((data: CurrencyExchangeResponseModel) => {
+                    console.log("service data", data);
                     return data;
                 }),
                 catchError(this.handleError)

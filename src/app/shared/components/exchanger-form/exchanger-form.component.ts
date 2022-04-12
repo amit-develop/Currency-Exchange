@@ -1,6 +1,8 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
+import { Observable } from 'rxjs';
 import { HomeService } from 'src/app/core/services/home.service';
 import { AppConstants } from 'src/app/shared/constants/app-constants';
 import { currencyList } from 'src/app/shared/constants/countries-data';
@@ -29,19 +31,24 @@ export class ExchangerFormComponent implements OnInit, OnChanges {
   exchangerForm!: FormGroup;
   rates: { [key: string]: number };
   conversionRate: number;
+  conversionFromRate: number;
+  conversionToRate: number;
   result: typeof this.rates;
   formStatusRef: typeof FormStatus;
   emitterObject: ExchangerFormEmitterModel;
   eurUsdBtnClicked: boolean;
   exchangeCurrency: string;
   disableMore: boolean;
+  toFromArr: string[];
+  observableArr: Observable<CurrencyExchangeResponseModel>[]
   exchangerFormData: ExchangerFormRequestModel;
   @Input() formData!: ExchangerFormRequestModel;
 
   constructor(
     private fb: FormBuilder,
     private homeService: HomeService,
-    private router: Router) {
+    private router: Router,
+    private messageService: MessageService) {
 
     this.buildForm();
     this.rates = {};
@@ -50,9 +57,13 @@ export class ExchangerFormComponent implements OnInit, OnChanges {
     this.emitterObject = {} as ExchangerFormEmitterModel;
     this.exchangerFormData = {} as ExchangerFormRequestModel;
     this.conversionRate = 0.00;
+    this.conversionToRate = 0.00;
+    this.conversionFromRate = 0.00;
     this.eurUsdBtnClicked = false;
     this.exchangeCurrency = '';
     this.disableMore = true;
+    this.observableArr = [];
+    this.toFromArr = [];
   }
 
   buildForm() {
@@ -90,7 +101,6 @@ export class ExchangerFormComponent implements OnInit, OnChanges {
     } else {
       this.disableMore = false
     }
-
     this.setDisplayVlaues()
   }
   setDisplayVlaues() {
@@ -108,23 +118,35 @@ export class ExchangerFormComponent implements OnInit, OnChanges {
     if (this.exchangerForm.status === FormStatus.INVALID) {
       return;
     }
+    this.callExchangeApi(this.exchangerForm.value.toCountry);
+  }
+
+  callExchangeApi(toCountry:string) {
     this.homeService.getConversionRates(
-      this.exchangerForm.value.fromCountry,
-      this.exchangerForm.value.toCountry,
+      'EUR',
+      toCountry,
       this.exchangerForm.value.amount, "latest"
     ).subscribe((next: CurrencyExchangeResponseModel) => {
+      if (!next.success){
+        this.exchangerForm.controls['conversionRate'].setValue('');
+        this.exchangerForm.controls['convertedValue'].setValue('');
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: "Restricted Service"});
+        return;
+      }
       this.rates = Object.assign({}, next.rates);
-      this.conversionRate = this.rates[this.exchangerForm.value.toCountry];
+      this.conversionFromRate = this.rates[this.exchangerForm.value.fromCountry];
+      this.conversionToRate = this.rates[this.exchangerForm.value.toCountry];
+      this.conversionRate = this.conversionToRate/this.conversionFromRate;
       this.exchangerForm.controls['conversionRate'].setValue("1.00 " + this.exchangerForm.value.fromCountry + " = " + this.conversionRate.toFixed(2) + " " + this.exchangerForm.value.toCountry);
       this.exchangerForm.controls['convertedValue'].setValue((this.conversionRate * this.exchangerForm.value.amount).toFixed(2) + " " + this.exchangerForm.value.toCountry);
-      this.emitterObject.rates = next.rates;
+      this.emitterObject.rates = next.rates
       this.emitterObject.valid = true;
-      this.emitterObject.amount = this.exchangerForm.value.amount
+      this.emitterObject.amount = this.exchangerForm.value.amount;
+      this.emitterObject.from = this.exchangerForm.value.fromCountry;
       this.exchangerFormData = this.createUpdateFormObject();
       this.homeService.updateFormValue(this.exchangerFormData);
       this.homeService.updateExchangerFormSubmit(this.emitterObject);
-      this.homeService.converterListener(this.exchangerFormData)
-
+      this.homeService.converterListener(this.exchangerFormData);
     })
   }
 

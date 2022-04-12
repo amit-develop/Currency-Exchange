@@ -8,13 +8,13 @@ import { ExchangerFormRequestModel } from '../shared/model/exchanger-form-reques
 
 enum Months {
   JAN = "January",
-  FEB = "Februry",
+  FEB = "February",
   MAR = "March",
   APR = "April",
   MAY = "May",
   JUN = "June",
   JUL = "July",
-  AUG = "Augus",
+  AUG = "August",
   SEP = "September",
   OCT = "October",
   NOV = "November",
@@ -39,6 +39,8 @@ export class DetailsPageComponent implements OnInit {
   observableArr: Observable<CurrencyExchangeResponseModel>[];
   fullSetData: CurrencyExchangeResponseModel[];
   listening: boolean;
+  monthLabels: string[];
+  monthRefArr: typeof Months
   constructor(
     private homeService: HomeService,
     private router: Router) {
@@ -55,10 +57,13 @@ export class DetailsPageComponent implements OnInit {
     this.fullSetData = [];
     this.detailsHeader = 'USD'
     this.listening = false;
+    this.monthLabels = [];
+    this.monthRefArr = Months;
   }
 
   ngOnInit(): void {
-    if(!this.listening){
+    const monthArr = Object.values(Months)
+    if (!this.listening) {
 
       this.formData = this.homeService.getFormData();
       if (Object.keys(this.formData).length === 0) {
@@ -66,22 +71,22 @@ export class DetailsPageComponent implements OnInit {
         this.formData.toCountry = 'USD'
         this.formData.amount = 1;
       }
-      const monthArr = Object.values(Months)
       this.makeObservableArr(monthArr);
       this.forkObservables();
     }
     this.homeService.exchangerSubject.subscribe(res => {
-        this.listening = true
-        this.formData.amount = res.amount;
-        this.formData.fromCountry = res.fromCountry;
-        this.formData.toCountry = res.toCountry;
-        this.forkObservables();
-      })
-    
+      this.listening = true
+      this.formData.amount = res.amount;
+      this.formData.fromCountry = res.fromCountry;
+      this.formData.toCountry = res.toCountry;
+      this.makeObservableArr(monthArr);
+      this.forkObservables();
+    })
+
     this.createChartOptions();
   }
 
-  createChartOptions(){
+  createChartOptions() {
     this.basicOptions = {
       plugins: {
         legend: {
@@ -111,13 +116,16 @@ export class DetailsPageComponent implements OnInit {
     };
   }
   makeObservableArr(monthArr: string[]) {
+    this.monthLabels = [];
     this.observableArr = monthArr.map((eachMonth: string, index: number) => {
+      let labelDates = new Date(new Date().getFullYear(), new Date().getMonth() - index, 1);
+      this.monthLabels.push(monthArr[labelDates.getMonth()]);
+      
       return this.homeService.getConversionRates(
-        this.formData.fromCountry,
+        'EUR',
         this.formData.toCountry,
         this.formData.amount,
-        index < 9 ?
-          "2021-0" + (index + 1) + "-01" : "2021-" + (index + 1) + "-01"
+        labelDates.toISOString().split('T')[0]
       )
     });
   }
@@ -128,15 +136,17 @@ export class DetailsPageComponent implements OnInit {
         this.fullSetData = Object.assign([], res);
         this.detailsHeader = this.formData.toCountry;
         res.map(eachObservable => {
-          this.dataSetToCountry.push((eachObservable.rates[this.formData.toCountry]));
+          const convertFromRate = eachObservable.rates[this.formData.fromCountry]
+          const convertToRate = eachObservable.rates[this.formData.toCountry]
+          const directConversionRate = convertToRate / convertFromRate;
+          this.dataSetToCountry.push(directConversionRate);
         })
         this.basicData = {
-          labels: [Months.JAN, Months.FEB, Months.MAR, Months.APR, Months.MAY,
-          Months.JUN, Months.JUL, Months.AUG, Months.SEP, Months.OCT, Months.NOV, Months.DEC],
+          labels: this.monthLabels.reverse(),
           datasets: [
             {
               label: this.formData.toCountry,
-              data: this.dataSetToCountry,
+              data: this.dataSetToCountry.reverse(),
               fill: false,
               borderColor: '#FFA726',
               tension: .4
